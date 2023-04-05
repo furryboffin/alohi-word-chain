@@ -16,6 +16,10 @@ import nltk
 from nltk.corpus import words
 english_words = set(words.words())
 
+#JRF TODO:
+# 1. add the endpoint to get history
+# 2. add the score output at end of game
+# 3. add readme to repo with explanation of the status of this project and what can be done to improve
 
 #JRF TODO, add failure handling... we should pass in the list of words in the history
 # so that they can be checked against the result... if we cannot get a word that is not
