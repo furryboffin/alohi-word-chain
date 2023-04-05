@@ -1,0 +1,34 @@
+from flask_restful import Resource
+import logging as logger
+
+class Employee(Resource):
+
+    def get(self):
+        try:
+
+            logger.debug("GET Method of Emplyee")
+            employees = Employee.query.all()
+            emp_list = []
+            # for emp in employees:
+            return {"message":"Inside GET Method of TaskByID"},200
+
+        except ValueError:
+            logger.error("failed to parse int.")
+            return {"message":"Error in GET."},400
+        except:
+            logger.error("failed to parse int with some uknown error.")
+            return {"message":"Internal Server Error in GET."},500
+
+    def post(self):
+        logger.debug("POST Method of TaskByID")
+        return {"message":"Inside POST Method of TaskByID"},200
+
+    def put(self):
+        logger.debug("PUT Method of TaskByID")
+        return {"message":"Inside PUT Method of TaskByID"},200
+
+    def delete(self):
+        logger.debug("DELETE Method of TaskByID")
+        return {"message":"Inside DELETE Method of TaskByID"},200
+
+

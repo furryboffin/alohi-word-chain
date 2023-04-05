@@ -1,0 +1,13 @@
+#Creating a Flask CRUD API.
+
+#start by creating the virtual env
+
+virtualenv -p /usr/bin/python3 venv
+
+#next activate the virtual env
+
+source venv/bin/activate
+
+#install Flask
+
+pip3 install flask
