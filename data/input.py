@@ -1,7 +1,6 @@
 class NewGameData:
-    def __init__(self, email, theme):
+    def __init__(self, email):
         self.email = email
-        self.theme = theme
 
 class NewWordData:
     def __init__(self, email, game_id, word):

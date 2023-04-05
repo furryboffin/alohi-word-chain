@@ -1,6 +1,6 @@
 from flask_restful import Api
 from app import app
-from .game import Game
+from .newGame import NewGame
 from .word import Word
 from .endGame import EndGame
 
@@ -9,7 +9,7 @@ from .endGame import EndGame
 
 restServer = Api(app)
 
-restServer.add_resource(Game, "/api/v1.0/game/new",)
+restServer.add_resource(NewGame, "/api/v1.0/game/new",)
 restServer.add_resource(EndGame, "/api/v1.0/game/end",)
 restServer.add_resource(Word, "/api/v1.0/game/word",)
 
