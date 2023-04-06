@@ -5,42 +5,49 @@ from sqlite3 import IntegrityError, OperationalError, ProgrammingError
 from sqlalchemy.exc import SQLAlchemyError, OperationalError, NoResultFound
 from flask import request, jsonify
 import logging as logger
-from data.input import EndGameData
+from data.input import GameHistoryData
 from model.game import Game
-from model.gameHistory import GameHistory
+from model.gameHistory import GameHistory as GameHistoryModel
 from model.user import User
 from utils.helpers import generate_result
 from app import db
 
-class EndGame(Resource):
+class GameHistory(Resource):
 
-    def post(self):
+    def get(self):
         try:
-            logger.debug("POST Method EndGame")
+            logger.debug("GET Method GameHistory")
             data = request.json
             logger.debug("POST Method body : {}".format(data))
-            end_game_data = EndGameData(**data)
+            game_history_data = GameHistoryData(**data)
 
-            logger.debug(end_game_data)
-            user = db.session.query(User).filter_by(email = end_game_data.email).first()
+            logger.debug(game_history_data)
+
+            user = db.session.query(User).filter_by(email = game_history_data.email).first()
             if not user:
                 return {"message":"ERROR: No user for this email exists."}
             logger.debug(user)
-            game = db.session.query(Game).filter(Game.user_id == user.id, Game.id == end_game_data.game_id, Game.ended_at == None).first()
+
+            game = db.session.query(Game).filter(Game.id == game_history_data.game_id, Game.user_id == user.id).first()
             logger.debug(game)
 
-            # First check that the game is started and has not already ended.
+            # First check that the game exists.
             if not game:
-                logger.debug("NOT GAME TRUE")
-                return {"message":"ERROR: No game for this user ongoing."}
-            logger.debug("GAME ongoing")
-            # END the Game.
-            game.ended_at = datetime.utcnow()
-            db.session.commit()
-
-            # history = db.session.query(GameHistory).filter(GameHistory.user_id == user.id, GameHistory.game_id == end_game_data.game_id).order_by(db.desc(GameHistory.created_at)).all()
-            result = generate_result(game)
-            return result
+                return {"message":"ERROR: No game for this user by that game_id."}
+            logger.debug("DEBUG 1")
+            history = db.session.query(GameHistoryModel).filter(GameHistoryModel.user_id == user.id, GameHistoryModel.game_id == game_history_data.game_id).order_by(db.desc(GameHistoryModel.created_at)).all()
+            # convert GameHistory objects to list of dictionaries
+            game_history_dicts = []
+            for game_history in history:
+                game_history_dicts.append({
+                    'word': game_history.word,
+                    'player_name': 'user' if game_history.is_user else 'server',
+                    'score': game_history.score,
+                    'created_at': game_history.created_at.strftime('%Y-%m-%d %H:%M:%S')
+                })
+            logger.debug("DEBUG 2")
+            logger.debug(game_history_dicts)
+            return game_history_dicts
 
         except (
                 ArgumentError,

@@ -1,6 +1,6 @@
 from argparse import ArgumentError
-import datetime
 from sqlite3 import IntegrityError, OperationalError, ProgrammingError
+from sqlalchemy.exc import SQLAlchemyError, OperationalError, NoResultFound
 from flask import request, jsonify
 from flask_restful import Resource
 import logging as logger
@@ -13,10 +13,6 @@ from data.input import NewGameData
 
 class NewGame(Resource):
     def post(self):
-        # JRF TODO add global try, except with finally to complete the session.commit()
-        # JRF TODO before allowing the user to create a new game, check if there is a game
-        # already ongoing.
-
         try:
             data = request.json
             logger.debug("POST Method body : {}".format(data))
@@ -48,18 +44,20 @@ class NewGame(Resource):
                 IntegrityError,
                 OperationalError,
                 ProgrammingError,
-                sqlalchemy.exc.SQLAlchemyError,
-                sqlalchemy.exc.OperationalError,
-                sqlalchemy.orm.exc.NoResultFound,
+                SQLAlchemyError,
+                OperationalError,
+                NoResultFound,
                 TypeError,
                 KeyError,
                 ValueError
             ) as e:
-                logger.error(e)
-                # Noramlly we'd spend more time on handling errors and providing useful
-                # logs and messages for the client.
-                return {"message":e.args[0]}, 400
+            logger.error(e)
+            # Noramlly we'd spend more time on handling errors and providing useful
+            # logs and messages for the client. I would handle errors and create codes
+            # for specific known error types. due to time constraints I will just send
+            # a generic error code for now
+            return {"error":{"code":"generic_code_to_be_specified", "message":e.args[0]}}, 400
         except:
             logger.error("Failed inside post method of game.")
-            return {"message":"Error in POST to api/v1.0/game"}, 500
+            return {"error":{"code":"internal_server_error", "message":"Error in POST to api/v1.0/game"}}, 500
 

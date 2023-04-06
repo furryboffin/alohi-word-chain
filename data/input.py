@@ -8,7 +8,12 @@ class NewWordData:
         self.game_id = game_id
         self.word = word
 
-class GameId:
-    def __init__(self, email, id):
+class EndGameData:
+    def __init__(self, email, game_id):
         self.email = email
-        self.id = id
+        self.game_id = game_id
+
+class GameHistoryData:
+    def __init__(self, email, game_id):
+        self.email = email
+        self.game_id = game_id

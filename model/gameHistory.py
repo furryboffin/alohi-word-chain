@@ -10,4 +10,4 @@ class GameHistory(db.Model):
     created_at = db.Column(db.DateTime, default=db.func.now())
 
     def __repr__(self):
-        return f"{self.id} - {self.game_id} - {self.word}"
+        return f"| {self.id} | {self.game_id} | {self.user_id} | {self.word} | {self.is_user} | {self.score} | {self.created_at} |\n"
