@@ -1,15 +1,13 @@
-from datetime import datetime
 from flask_restful import Resource
 from argparse import ArgumentError
 from sqlite3 import IntegrityError, OperationalError, ProgrammingError
 from sqlalchemy.exc import SQLAlchemyError, OperationalError, NoResultFound
-from flask import request, jsonify
+from flask import request
 import logging as logger
 from data.input import GameHistoryData
 from model.game import Game
 from model.gameHistory import GameHistory as GameHistoryModel
 from model.user import User
-from utils.helpers import generate_result
 from app import db
 
 class GameHistory(Resource):

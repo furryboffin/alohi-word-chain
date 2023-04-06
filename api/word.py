@@ -72,7 +72,6 @@ class Word(Resource):
             user_score = calculate_score(word=user_word, fast_bonus=fast_bonus)
 
             # Store the word in the GameHistory table
-            # with app.app_context():
             history_entry = GameHistory(game_id = word_data.game_id, user_id = 1, word=user_word, is_user=True, score=user_score)
             game.user_score += user_score
 
@@ -94,7 +93,6 @@ class Word(Resource):
             game.server_score += server_score
 
             # store this new word in the game history table.
-            # with app.app_context():
             history_entry = GameHistory(game_id = word_data.game_id, user_id = 1, word=new_word, is_user=False, score=server_score)
             db.session.add(history_entry)
             db.session.commit()

@@ -1,4 +1,3 @@
-from flask import jsonify, make_response
 from flask_restful import Api
 from app import app
 from .gameHistory import GameHistory

@@ -1,11 +1,9 @@
 from argparse import ArgumentError
 from sqlite3 import IntegrityError, OperationalError, ProgrammingError
 from sqlalchemy.exc import SQLAlchemyError, OperationalError, NoResultFound
-from flask import request, jsonify
+from flask import request
 from flask_restful import Resource
 import logging as logger
-
-import sqlalchemy
 from model.game import Game
 from model.user import User
 from app import app, db
