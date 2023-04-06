@@ -1,4 +1,4 @@
-Alohi Word Chain Game
+# Alohi Word Chain Game
 
 This project creates a REST API that exposes the following endpoints:
 
