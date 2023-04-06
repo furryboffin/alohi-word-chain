@@ -34,6 +34,12 @@ To get history of a game GET to /game/history :
     "game_id": GAME_ID
 }
 
+REQUIREMENTS:
+
+This project uses sqlite so you will need that to be installed.
+
+The python deps are in requirements.txt
+
 
 Things that I would normally do but did not have time:
 - Pull out repeated code into functions, namely the checks for user and game.
