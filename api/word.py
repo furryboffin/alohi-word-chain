@@ -90,7 +90,7 @@ class Word(Resource):
             new_word = generate_random_word(last_letter, previous_words=all_words)
 
             # Calculate the score
-            server_score = calculate_score(new_word, False)
+            server_score = calculate_score(word=new_word, fast_bonus=False)
             game.server_score += server_score
 
             # store this new word in the game history table.

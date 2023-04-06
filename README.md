@@ -4,3 +4,4 @@ Things that I would normally do but did not have time:
 - Pull out repeated code into functions, namely the checks for user and game.
 - Add better handling for when the server is unable to find a word before timeout.
 - structure the code better, all functions interacting with DB should be in a controller module.
+- Add better handling for db session when something fails we should roll back the session and not commit. There is currently a weakness in /game/word endpoint.
