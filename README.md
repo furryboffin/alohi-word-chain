@@ -1,4 +1,4 @@
-# Alohi Word Chain Game
+# Word Chain Game
 
 This project creates a REST API that exposes the following endpoints:
 
@@ -52,7 +52,7 @@ This project uses sqlite so you will need that to be installed.
 The python deps are in requirements.txt
 
 Things that I would normally do but did not have time:
-* Test driven dev. Normally I always start with tests. I would add unit tests for helper functions and route tests for the API endpoints, checking all aspects of the endpoint functionality, error responses to incorrect json structure in request body, status codes for both errors and successful requests. etc. 
+* Add unit tests for helper functions and route tests for the API endpoints, checking all aspects of the endpoint functionality, error responses to incorrect json structure in request body, status codes for both errors and successful requests. etc. 
 * Pull out repeated code into functions, namely the checks for user and game.
 * Add better handling for when the server is unable to find a word before timeout.
 * structure the code better, all functions interacting with DB should be in a controller module.
